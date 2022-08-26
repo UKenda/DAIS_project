@@ -1,6 +1,5 @@
 #include <ros/ros.h>
 #include <visualization_msgs/Marker.h>
-#include <tf/transform_broadcaster.h>
 
 int main( int argc, char** argv )
 {
@@ -16,7 +15,7 @@ int main( int argc, char** argv )
   {
     visualization_msgs::Marker marker;
     // Set the frame ID and timestamp.  See the TF tutorials for information on these.
-    marker.header.frame_id = "marker_frame";
+    marker.header.frame_id = "/my_frame";
     marker.header.stamp = ros::Time::now();
 
     // Set the namespace and id for this marker.  This serves to create a unique ID
@@ -52,15 +51,6 @@ int main( int argc, char** argv )
 
     marker.lifetime = ros::Duration();
 
-
-
-    static tf::TransformBroadcaster br;
-    tf::Transform transform;
-    transform.setOrigin( tf::Vector3(0, 0, 0) );
-    tf::Quaternion q;
-    q.setRPY(0, 0, 0);
-    transform.setRotation(q);
-    br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "odom", marker.header.frame_id));
     // Publish the marker
     while (marker_pub.getNumSubscribers() < 1)
     {
@@ -72,7 +62,7 @@ int main( int argc, char** argv )
       sleep(1);
     }
     marker_pub.publish(marker);
-    
+
     // Cycle between different shapes
     switch (shape)
     {

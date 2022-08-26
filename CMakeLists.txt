@@ -25,5 +25,3 @@ include_directories(
 )
 add_executable(marker src/marker.cpp)
 target_link_libraries(marker ${catkin_LIBRARIES})
-add_executable(platform_marker src/platform_marker.cpp)
-target_link_libraries(platform_marker ${catkin_LIBRARIES})
