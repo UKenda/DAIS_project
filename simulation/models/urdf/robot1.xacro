@@ -265,7 +265,7 @@
             </camera>
             <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
                 <frame_name>camera_link_optical</frame_name>
-
+                <imageTopicName>/camera/rgb/image_raw</imageTopicName>
             </plugin>
         </sensor>
     </gazebo>
