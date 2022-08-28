@@ -671,7 +671,82 @@
                 <fdir1>0 0 0</fdir1>
                 <slip1>0</slip1>
                 <slip2>0</slip2>
-              </ode>
+              </ode>      <model name='Panda'>
+        <pose>0.00329 0.007508 0 -1e-06 5e-06 2e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='panda_hand'>
+          <pose>0.091295 0.00751 0.926 -3.14159 -1e-06 0.7854</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='panda_leftfinger'>
+          <pose>0.091294 0.00751 0.8676 -3.14159 -1e-06 0.7854</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='panda_link0'>
+          <pose>0.00329 0.007508 0 -1e-06 5e-06 2e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='panda_link1'>
+          <pose>0.003292 0.007508 0.333 -1e-06 5e-06 2e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='panda_link2'>
+          <pose>0.003292 0.007508 0.333 -1.5708 5e-06 2e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='panda_link3'>
+          <pose>0.003293 0.00751 0.649 -1e-06 5e-06 2e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='panda_link4'>
+          <pose>0.085793 0.00751 0.649 1.5708 5e-06 2e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='panda_link5'>
+          <pose>0.003295 0.007509 1.033 -1e-06 5e-06 2e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='panda_link6'>
+          <pose>0.003295 0.007509 1.033 1.5708 5e-06 2e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='panda_link7'>
+          <pose>0.091295 0.007509 1.033 -3.14159 5e-06 2e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='panda_link8'>
+          <pose>0.091294 0.00751 0.823 -3.14159 -1e-06 0.7854</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='panda_rightfinger'>
+          <pose>0.091294 0.00751 0.8676 -3.14159 -1e-06 0.7854</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
               <torsional>
                 <coefficient>1</coefficient>
                 <patch_radius>0</patch_radius>
