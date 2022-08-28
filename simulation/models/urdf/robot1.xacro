@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<robot name="bot"
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- INCLUDES -->
+    <xacro:include filename="$(find simulation)/models/urdf/robot1_parameters.xacro" />
+    <!-- BASE LINK -->
+    <link name="base_link">  
+        <inertial>
+            <origin rpy="0 0 0" xyz="-0.4348827 -0 0.130504"/>
+            <mass value="${base_mass}"/>
+            <inertia ixx="0.01622966" ixy = "0" ixz = "0.00032045" iyy="0.030945721" iyz = "0" izz="0.0442044364" />
+        </inertial>
+        <collision name="base_front_collision">
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <!--<box size="${base_size_x} ${base_size_y} ${base_size_z}"/>-->
+                <mesh filename="package://simulation/models/mash/vozicek1.0.STL" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <!--<box size="${base_size_x} ${base_size_y} ${base_size_z}"/>-->
+                <mesh filename="package://simulation/models/mash/vozicek1.0.STL" />
+            </geometry>
+            <material name="yellow"/>
+        </visual>
+    </link>
+
+    <joint name="caster_wheel_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="caster_wheel_link"/>
+        <origin xyz="-0.9 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="caster_wheel_link">
+        <visual>
+            <geometry>
+                <sphere radius="0.1" />
+            </geometry>
+            <material name="gray"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.1" />
+            </geometry>
+
+        </collision>
+        
+    </link>
+
+    <joint name="lidar_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="lidar_link"/>
+        <origin xyz="0.3 0 0.05" rpy="0 0 0"/>
+    </joint>
+
+    <link name="lidar_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://simulation/models/mash/sickS300mini.STL" />
+            </geometry>
+            <material name="gray"/>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://simulation/models/mash/sickS300mini.STL" />
+            </geometry>
+
+        </collision>
+        
+    </link>
+
+    <joint name="camera_joint" type="fixed">
+        <origin xyz="0.3 0.2 0.2" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="camera_link"/>        
+    </joint>
+
+
+    <link name="camera_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.06 0.15 0.15" />
+            </geometry>
+            <material name="white" />
+        </visual>
+        <visual>
+            <origin xyz="0.03 0 0" rpy="0 ${pi/2} 0"/>
+            <geometry>
+                <cylinder length="0.06" radius="0.04" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <origin xyz="0.0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.12 0.15 0.15" />
+            </geometry>
+        </collision>
+
+    </link>
+
+    <joint name="camera_optical_joint" type="fixed">
+        <origin xyz="0.1 0 0" rpy="-1.571 0 -1.571" />
+        <parent link="camera_link" />
+        <child link="camera_link_optical" />
+    </joint>
+
+    <link name="camera_link_optical"></link>
+
+
+        <!-- LEFT WHEEL JOINT -->
+    <joint name="left_wheel_joint" type="continuous">
+        <origin rpy="0 0 0" xyz="0 0.275 0"/>
+        <child link="left_wheel_link"/>
+        <parent link="base_link"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <dynamics damping="${motor_damping}" friction="${motor_friction}"/>
+    </joint>
+    <!-- LEFT WHEEL LINK -->
+    <link name="left_wheel_link">
+        <inertial>
+            <mass value="${wheel_mass}"/>
+            <origin rpy="0 0 0" xyz="0 0.275 0"/>
+            <inertia ixx="0.00001546" ixy = "0.0000006" ixz = "0.000001546" iyy="0.000019889" iyz = "0" izz="0.00001102" />
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://simulation/models/mash/kolo1.0.STL" />
+            </geometry>
+
+        </collision>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://simulation/models/mash/kolo1.0.STL" />
+            </geometry>
+            <material name="gray"/>
+        </visual>
+    </link>
+
+            <!-- RIGHT WHEEL JOINT -->
+    <joint name="right_wheel_joint" type="continuous">
+        <origin rpy="0 0 0" xyz="0 -0.275 0"/>
+        <child link="right_wheel_link"/>
+        <parent link="base_link"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <dynamics damping="${motor_damping}" friction="${motor_friction}"/>
+    </joint>
+    <!-- RIGHT WHEEL LINK -->
+    <link name="right_wheel_link">
+        <inertial>
+            <mass value="${wheel_mass}"/>
+            <origin rpy="0 0 0" xyz="0 -0.275 0"/>
+            <inertia ixx="0.00001546" ixy = "0.0000006" ixz = "0.000001546" iyy="0.000019889" iyz = "0" izz="0.00001102" />
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://simulation/models/mash/kolo1.0.STL" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://simulation/models/mash/kolo1.0.STL" />
+            </geometry>
+            <material name="gray"/>
+        </visual>
+    </link>
+
+
+
+
+
+
+
+
+    <!-- GAZEBO CONTROL -->
+    <gazebo>
+        <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+            <!-- wheel info-->
+            <leftJoint>left_wheel_joint</leftJoint>
+            <rightJoint>right_wheel_joint</rightJoint>
+            <wheelSeparation>0.550</wheelSeparation>
+            <wheelDiameter>0.120</wheelDiameter>
+
+            <wheelTorque>50</wheelTorque>
+            <wheelAcceleration>10</wheelAcceleration>
+
+            
+            <commandTopic>cmd_vel</commandTopic>
+            <odometryFrame>odom</odometryFrame>
+            <odometryTopic>odom</odometryTopic>
+            <robotBaseFrame>base_link</robotBaseFrame>
+
+            <publishOdom>true</publishOdom>
+            <publishOdomTF>true</publishOdomTF>
+            <odometrySource>world</odometrySource>
+        </plugin>
+    </gazebo>
+
+
+    <gazebo reference="base_link">
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+    <gazebo reference="left_wheel_link">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+    <gazebo reference="right_wheel_link">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+    <gazebo reference="caster_wheel_link">
+        <material>Gazebo/Black</material>
+        <mu1 value="0.00001"/>
+        <mu2 value="0.00001"/>
+    </gazebo>
+    <gazebo reference="lidar_link">
+        <material>Gazebo/Black</material>
+        <sensor name="laser" type="ray">
+            <visualize>true</visualize>
+            <update_rate>10</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>180</samples>
+                        <resolution>2</resolution>
+                        <min_angle>-1.57</min_angle>
+                        <max_angle>1.57</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.2</min>
+                    <max>10</max>
+                </range>
+            </ray>
+            <plugin name="laser_controller" filename="libgazebo_ros_laser.so">
+            <topicName>scan</topicName>
+            <frameName>lidar_link</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+
+
+
+    <gazebo reference="camera_link">
+        <sensor type="depth" name="my_camera">
+            <update_rate>20</update_rate>
+            <visualize>true</visualize>
+            <camera name="cam">
+                <horizontal_fov>1.3962634</horizontal_fov>
+                <image>
+                    <width>640</width>
+                    <height>480</height>
+                    <format>R8B8G8</format>
+                </image>
+                <clip>
+                    <near>0.05</near>
+                    <far>50</far>
+                </clip>
+            </camera>
+            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                <frame_name>camera_link_optical</frame_name>
+
+            </plugin>
+        </sensor>
+    </gazebo>
+
+
+
+
+
+</robot>

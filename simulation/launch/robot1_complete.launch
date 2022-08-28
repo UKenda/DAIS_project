@@ -1,0 +1,12 @@
+<launch>
+
+
+  <include file="$(find simulation)/launch/gazebo_robot1.launch"/>
+
+	<arg name="rviz_config" default="$(find simulation)/rviz/robot1.rviz"/>
+
+	<node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+	<node type="rviz" name="rviz" pkg="rviz" args="-d $(arg rviz_config)" />
+    <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
+
+</launch>
