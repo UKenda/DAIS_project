@@ -7,7 +7,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   tf
-  darknet_ros  
+  #darknet_ros  
   darknet_ros_msgs
   )
 
