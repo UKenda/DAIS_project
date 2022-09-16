@@ -56,20 +56,21 @@ int main(int argc, char** argv) {
     if (boxes.header.seq != boxes_seq){//ce je nov podatek/nov msg
       for(int i = 0; i < boxes.bounding_boxes.size();i++){
         if(boxes.bounding_boxes[i].Class == "person"){
-          float angle_obj_max = (-Hfov*0.7 * (boxes.bounding_boxes[i].xmin*2-Hres))/Hres + pi/2; // rad |
-          float angle_obj_min = (-Hfov*0.7 * (boxes.bounding_boxes[i].xmax*2-Hres))/Hres + pi/2; // rad
-          cout<<"angle_obj_min: " << angle_obj_min << " kar je v stopinjah: "<< angle_obj_min * 180/pi <<endl;
-          cout<<"angle_obj_max: " << angle_obj_max << " kar je v stopinjah: "<< angle_obj_max * 180/pi <<endl;
+
+          float obj_center_x = (boxes.bounding_boxes[i].xmax + boxes.bounding_boxes[i].xmin)/2; // v piklsih
+          float obj_center_y = (boxes.bounding_boxes[i].ymax + boxes.bounding_boxes[i].ymin)/2;
+          float calculated_angle = -0.1356*obj_center_x-0.0474*obj_center_y+145.586; //deg
           //cout<<"range_max: " << scan.ranges.size() <<endl; // deg*/
           float sestevek = 0; //povprecna razdaja objekta 
           int stevec = 0; // pretvorba v deg
-          for(int l = (angle_obj_min * 180/pi)*2; l <= (angle_obj_max * 180/pi)*2; l++) //deg podatek
+
+          for(int l = (calculated_angle)*2-1; l <= (calculated_angle)*2+1; l++) //deg podatek
           {
               if(scan.ranges[l] < 10 && scan.ranges[l] > 0) //ce smo v kateri koli meritvi kaj zaznali
               {
                   sestevek +=  sin((l/2)*pi/180) * scan.ranges[l];
                   stevec++;
-                  /*cout<<"l: " << l << " kar je : "<< l/2 << "°"<<endl;
+                  cout<<"l: " << l << " kar je : "<< l/2 << "°"<<endl;
                   cout<<"stevec: " << stevec <<endl;
                   cout<<"z: " << sin((l/2)*pi/180) * scan.ranges[l] <<endl;
                   cout<<" " <<endl;//*/
@@ -77,8 +78,7 @@ int main(int argc, char** argv) {
           }
           obj_x[i] = sestevek/stevec + 0.25; // razdalja od objekta v [m]
           cout<<"obj_x: " << obj_x[i] <<endl;
-          float angle_obj = (angle_obj_max + angle_obj_min)/2- pi/2;
-          obj_y[i] = tan(angle_obj)*obj_x[i];
+          obj_y[i] = -obj_x[i]/tan(calculated_angle*pi/180);
           cout<<"obj_y: " << obj_y[i] <<endl;
   ///////////////////////////////////////////
 
