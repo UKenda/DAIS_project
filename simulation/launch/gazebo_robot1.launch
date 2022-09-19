@@ -4,12 +4,12 @@
   <include file="$(find simulation)/launch/gazebo_world.launch"/>
 
   <!-- Robot pose -->
-  <arg name="x" default="-7"/>
+  <arg name="x" default="0"/>
   <arg name="y" default="0"/>
   <arg name="z" default="0.3"/>
   <arg name="roll" default="0"/>
   <arg name="pitch" default="0"/>
-  <arg name="yaw" default="-1.57"/>
+  <arg name="yaw" default="0"/>
 	<param name="robot_description" command="$(find xacro)/xacro --inorder $(find simulation)/models/urdf/robot1.xacro" />
 
 <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model bot -x $(arg x) -y $(arg y) -z $(arg z)
