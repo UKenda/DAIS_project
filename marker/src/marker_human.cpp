@@ -17,17 +17,6 @@ void lidarCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
 void yoloCallback(const darknet_ros_msgs::BoundingBoxes::ConstPtr& msg){
 
   boxes = *msg;
-  /*
-  cout<<"Bouding Boxes (header):" << msg->header <<endl;
-	cout<<"Bouding Boxes (image_header):" << msg->image_header <<endl;
-	cout<<"Bouding Boxes (Class):" << msg->bounding_boxes[0].Class <<endl;
-	cout<<"Bouding Boxes (xmin):" << msg->bounding_boxes[0].xmin <<endl;
-	cout<<"Bouding Boxes (xmax):" << msg->bounding_boxes[0].xmax <<endl;
-	cout<<"Bouding Boxes (ymin):" << msg->bounding_boxes[0].ymin <<endl;
-	cout<<"Bouding Boxes (ymax):" << msg->bounding_boxes[0].ymax <<endl;
-	cout<<"Bouding Boxes (id):" << msg->bounding_boxes[0].id <<endl;
-	cout << "\033[2J\033[1;1H";     // clear terminal*/
-
 
 
 }
@@ -42,7 +31,7 @@ int main(int argc, char** argv) {
   //return 0;
 
   uint32_t shape_cube = visualization_msgs::Marker::CUBE;
-
+  uint32_t shape_cylinder = visualization_msgs::Marker::CYLINDER;
   //!!!!!!!!!!!!1tukaj dalje!!!!!!!!!!!!!
 
 
@@ -85,7 +74,7 @@ int main(int argc, char** argv) {
           human_counter++;
           cout<<" " <<endl;
           cout<<"person" << human_counter <<endl;
-          obj_x[i] = sestevek/stevec + 0.25; // razdalja od objekta v [m]
+          obj_x[i] = sestevek/stevec + 0.35; // razdalja od objekta v [m] | sredisce cloveka od base linka
           cout<<"obj_x: " << obj_x[i] <<endl;
           obj_y[i] = -obj_x[i]/tan(calculated_angle*pi/180);
           cout<<"obj_y: " << obj_y[i] <<endl;
@@ -102,7 +91,7 @@ int main(int argc, char** argv) {
           marker.id = human_counter;
 
           // Set the marker type.  Initially this is CUBE, and cycles between that and SPHERE, ARROW, and CYLINDER
-          marker.type = shape_cube;
+          marker.type = shape_cylinder;
 
           // Set the marker action.  Options are ADD, DELETE, and new in ROS Indigo: 3 (DELETEALL)
           marker.action = visualization_msgs::Marker::ADD;
@@ -110,15 +99,15 @@ int main(int argc, char** argv) {
           // Set the pose of the marker.  This is a full 6DOF pose relative to the frame/time specified in the header
           marker.pose.position.x = obj_x[i];
           marker.pose.position.y = obj_y[i];
-          marker.pose.position.z = 1;
+          marker.pose.position.z = 0.95;
           marker.pose.orientation.x = 0.0;
           marker.pose.orientation.y = 0.0;
           marker.pose.orientation.z = 0.0;
           marker.pose.orientation.w = 1.0;
 
           // Set the scale of the marker -- 1x1x1 here means 1m on a side
-          marker.scale.x = 0.5;
-          marker.scale.y = 0.5;
+          marker.scale.x = 0.75;
+          marker.scale.y = 0.75;
           marker.scale.z = 2;
 
           // Set the color -- be sure to set alpha to something non-zero!
@@ -137,7 +126,7 @@ int main(int argc, char** argv) {
           tf::Quaternion q;
           q.setRPY(0, 0, 0);
           transform.setRotation(q);
-          br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "base_link", marker.header.frame_id));
+          br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "lidar_link", marker.header.frame_id));
 
           marker_pub.publish(marker);
 
