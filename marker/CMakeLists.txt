@@ -23,7 +23,7 @@ include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
 )
-add_executable(marker src/marker.cpp)
-target_link_libraries(marker ${catkin_LIBRARIES})
+add_executable(marker_human src/marker_human.cpp)
+target_link_libraries(marker_human ${catkin_LIBRARIES})
 add_executable(platform_marker src/platform_marker.cpp)
 target_link_libraries(platform_marker ${catkin_LIBRARIES})
